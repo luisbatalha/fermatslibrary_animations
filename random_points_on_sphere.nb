@@ -1,0 +1,33 @@
+SphericalNonUniformDistribution[num_] := 
+ Table[{Cos[#1] Sin[#2], Sin[#1] Sin[#2], Cos[#2]} &[
+   Random[Real, {0, 2 Pi}], Random[Real, {0, Pi}]], {num}]
+
+SphericalDistribution[num_] := 
+ Table[{Cos[#1] Sqrt[1 - #2^2], Sin[#1] Sqrt[1 - #2^2], #2} &[
+   Random[Real, {0, 2 Pi}], Random[Real, {-1, 1}]], {num}]
+
+NonUniformD = {
+   PointSize[.002], White, 
+   Point /@ SphericalNonUniformDistribution[10000],
+   {Specularity[0.2], Opacity[0.0], Sphere[{0, 0, 0}, 1]}
+   };
+
+UniformD = {
+   PointSize[.002], White, Point /@ SphericalDistribution[10000],
+   {Specularity[0.2], Opacity[0.0], Sphere[{0, 0, 0}, 1]}
+   };
+
+equator = 
+  ParametricPlot3D[{Sin[x], Cos[x], 0}, {x, 0, 2*Pi}, 
+    PlotStyle -> {White, Thickness[0.005], Opacity[0.4]}][[1]]; 
+
+Uni[t_] := Graphics3D[{UniformD, equator}, ViewPoint -> {0, t, 3}, 
+  Boxed -> False, ImageSize -> {400, 400}, Background -> Black] 
+
+NonUni[t_] := 
+ Graphics3D[{NonUniformD, equator}, ViewPoint -> {0, t, 3}, 
+  Boxed -> False, ImageSize -> {400, 400}, Background -> Black] 
+
+Uni[1]
+
+NonUni[1]
