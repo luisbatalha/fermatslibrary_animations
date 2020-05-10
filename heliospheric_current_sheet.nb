@@ -1,0 +1,9 @@
+hcs[i_] = Plot3D[With[{\[Phi] = ArcTan[x, y], r = Sqrt[x^2 + y^2]}, 
+   0.3 Sin[2 \[Pi] r + \[Phi]]], {x, -4, 4}, {y, -4, 4}, 
+   BoxRatios -> Automatic, Mesh -> None, PlotPoints -> 25, 
+   MaxRecursion -> 4, SphericalRegion -> True, Boxed -> False, 
+   Background -> Black, Axes -> False, 
+   ViewPoint -> RotationTransform[i*2 \[Pi], {0, 0, 1}][{18, 0, 10}], 
+   ViewAngle -> Automatic, ImageSize -> {600, 600}];
+
+Manipulate[hcs[i], {i, 0, 1}]
